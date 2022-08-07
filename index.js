@@ -17,11 +17,16 @@ app.use("/my/path", slackEvents.requestListener());
 app.get('/', (req, res) => {
   res.send('app works..!');
 });
+
 app.post('/hello', (req, res) => {
   console.log("hello")
+  web.chat.postMessage({
+    channel: "#finance-test-bot",
+    link_names: 1,
+    text: `Hello! This is notify that I have been setup correctly`,
+  });
   res.end("hello");
 });
-
 
 // Example: If you're using a body parser, always put it after the event adapter in the middleware stack
 app.use(bodyParser());
