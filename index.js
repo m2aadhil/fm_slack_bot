@@ -10,6 +10,8 @@ const web = new WebClient(process.env.SLACK_TOKEN);
 const cron = require("node-cron");
 const financeTeam = require("./members");
 
+const channel = "#finance-internal"
+
 // Create an express application
 const app = express();
 app.use("/my/path", slackEvents.requestListener());
@@ -21,9 +23,9 @@ app.get('/', (req, res) => {
 app.post('/hello', (req, res) => {
   console.log("hello")
   web.chat.postMessage({
-    channel: "#finance-test-bot",
+    channel: channel,
     link_names: 1,
-    text: `Hello! This is notify that I have been setup correctly`,
+    text: `Hello! This is to notify that I have been setup correctly`,
   });
   res.end("hello");
 });
@@ -35,7 +37,7 @@ const postMessage = async () => {
   const user = financeTeam.getNextMonitoringPerson();
   try {
     await web.chat.postMessage({
-      channel: "#finance-test-bot",
+      channel: channel,
       link_names: 1,
       text: `Hello @${user.userId}! It seems you are the monitoring person for this week. Good Luck! :))`,
     });
