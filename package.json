@@ -1,0 +1,25 @@
+{
+  "name": "fmbot",
+  "version": "0.0.1",
+  "description": "Finance Monitoring Slack Bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m2aadhil/fm_slack_bot.git"
+  },
+  "author": "aadhil musthaq",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/m2aadhil/fm_slack_bot/issues"
+  },
+  "homepage": "https://github.com/m2aadhil/fm_slack_bot#readme",
+  "dependencies": {
+    "@slack/events-api": "^3.0.1",
+    "@slack/web-api": "^6.7.2",
+    "node-cron": "^3.0.1",
+    "uuid": "^8.3.2"
+  }
+}
