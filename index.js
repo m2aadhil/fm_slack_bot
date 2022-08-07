@@ -19,6 +19,7 @@ app.get('/', (req, res) => {
 });
 app.post('/hello', (req, res) => {
   console.log("hello")
+  res.end("hello");
 });
 
 
@@ -49,7 +50,7 @@ const postMessage = async () => {
   });
 
   //0 8 * * MON
-  cron.schedule("* * * * *", () => {
+  cron.schedule("0 8 * * MON", () => {
     postMessage();
     console.log("running a task every minute");
   });
