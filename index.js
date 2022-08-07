@@ -2,8 +2,10 @@ const { WebClient } = require("@slack/web-api");
 const { createEventAdapter } = require("@slack/events-api");
 
 // Create a new instance of the WebClient class with the token read from your environment variable
-const web = new WebClient(process.env.SLACK_TOKEN);
-const slackEvents = createEventAdapter(process.env.SLACK_TOKEN);
+const slackToken = "xoxb-230070528981-3891082913393-0JGirJWzxkt9eJZVnf3FL1O5";
+//process.env.SLACK_TOKEN
+const web = new WebClient(slackToken);
+const slackEvents = createEventAdapter(slackToken);
 // The current date
 const currentTime = new Date().toTimeString();
 
