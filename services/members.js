@@ -30,7 +30,9 @@ const addMember = (userId, userName) => {
   writeTeam(financeTeam);
 };
 
-const deleteMember = (userId) => {};
+const deleteMember = (userId) => {
+
+};
 
 const getFullSchedule = () => {
   const financeTeam = getFinanceTeam();
@@ -58,3 +60,4 @@ function getMondayOfCurrentWeek() {
 
 exports.getNextMonitoringPerson = getNextMonitoringPerson;
 exports.getFullSchedule = getFullSchedule;
+exports.addMember = addMember;

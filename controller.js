@@ -26,8 +26,14 @@ app.post('/getschedule', (req, res) => {
 
 app.post('/addmember', (req, res) => {
   const text = req.body.text;
-  console.log(text);
-  const schedule = financeTeam.getFullSchedule();
+  const userBlocks = req.body.text.split(" ");
+  if(userBlocks.length < 1){
+    res.end("user id and name must be specifed");
+  }
+
+  const userId = userBlocks[0];
+  const userName = userBlocks[1];
+  financeTeam.addMember(userBlocks[0], userBlocks[1]);
   res.end("user added successfully");
 });
 
