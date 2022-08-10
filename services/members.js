@@ -43,4 +43,8 @@ const deleteMember = (userId) => {
   financeTeam.slice(index, 1);
 };
 
+const getFullSchedule = () => {
+  
+}
+
 exports.getNextMonitoringPerson = getNextMonitoringPerson;
