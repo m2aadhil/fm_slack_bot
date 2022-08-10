@@ -18,7 +18,6 @@ app.post('/getschedule', (req, res) => {
   const schedule = financeTeam.getFullSchedule();
   console.log(schedule);
   res.json({"blocks": schedule});
-  // res.end(schedule);
 });
 
 app.use(bodyParser());
