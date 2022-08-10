@@ -26,7 +26,7 @@ app.post('/getschedule', (req, res) => {
 
 app.post('/addmember', (req, res) => {
   const text = req.body.text;
-  const userBlocks = req.body.text.split(" ");
+  const userBlocks = req.body.text.split(/ (.*)/s);
   if(userBlocks.length < 1){
     res.end("user id and name must be specifed");
   }
