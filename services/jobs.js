@@ -6,7 +6,7 @@ const runMonitoringReminder = () => {
   const nextUser = financeTeam.getNextMonitoringPerson();
   const message = `Hello @${nextUser.userId}! It seems you are the monitoring person for this week. Good Luck! :))`;
   //0 8 * * MON
-  cron.schedule("* * * * *", () => {
+  cron.schedule("0 8 * * MON", () => {
     webChat.postMessage(message);
   });
 };
