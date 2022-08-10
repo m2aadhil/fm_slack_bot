@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const webChat = require("./services/webChat");
-const financeTeam = require("./members");
+const financeTeam = require("./services/members");
 
 //routes
 app.get('/', (req, res) => {
