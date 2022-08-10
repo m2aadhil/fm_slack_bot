@@ -1,14 +1,8 @@
 const fs = require("fs");
 
-const getConfig = () => {
-  let rawdata = fs.readFileSync("./assets/config.json");
-  let config = JSON.parse(rawdata);
-  return config;
-};
-
-const writeConfig = (config) => {
-  let data = JSON.stringify(config);
-  fs.writeFileSync("./assets/config.json", data);
+const writeTeam= (team) => {
+  let data = JSON.stringify(team);
+  fs.writeFileSync("./assets/members.json", data);
 };
 
 const getFinanceTeam = () => {
@@ -19,12 +13,10 @@ const getFinanceTeam = () => {
 
 const getNextMonitoringPerson = () => {
   const financeTeam = getFinanceTeam();
-  let config = getConfig();
-  if (config.currentIndex >= financeTeam.length) {
-    config.currentIndex = 0;
-  }
-  const person = financeTeam[config.currentIndex++];
-  writeConfig(config);
+  const person = financeTeam[0];
+  financeTeam.splice(0, 1);
+  financeTeam.push(person);
+  writeTeam(financeTeam);
   return person;
 };
 
@@ -35,16 +27,34 @@ const addMember = (userId, userName) => {
     userId: userId,
     userName: userName,
   });
+  writeTeam(financeTeam);
 };
 
-const deleteMember = (userId) => {
-  const financeTeam = getFinanceTeam();
-  const index = financeTeam.findIndex();
-  financeTeam.slice(index, 1);
-};
+const deleteMember = (userId) => {};
 
 const getFullSchedule = () => {
-  
+  const financeTeam = getFinanceTeam();
+  let currentMonday = getMondayOfCurrentWeek();
+  let payLoad = [];
+  for (let i = 0; i < financeTeam.length; i++) {
+    payLoad.push({
+      type: "section",
+      text: {
+        type: "mrkdwn",
+        text: financeTeam[i].userName + " - " + currentMonday.toDateString(),
+      },
+    });
+    currentMonday.setDate(currentMonday.getDate() + 7);
+  }
+  return payLoad;
+};
+
+function getMondayOfCurrentWeek() {
+  const today = new Date();
+  const first = today.getDate() - today.getDay() + 1;
+  const monday = new Date(today.setDate(first));
+  return monday;
 }
 
 exports.getNextMonitoringPerson = getNextMonitoringPerson;
+exports.getFullSchedule = getFullSchedule;
