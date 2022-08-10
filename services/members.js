@@ -41,7 +41,7 @@ const getFullSchedule = () => {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: financeTeam[i].userName + "*\n" + currentMonday.toLocaleDateString(),
+        text: "*" + financeTeam[i].userName + "* : " + currentMonday.toLocaleDateString(),
       },
     });
     currentMonday.setDate(currentMonday.getDate() + 7);
