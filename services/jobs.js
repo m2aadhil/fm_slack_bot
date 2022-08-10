@@ -4,7 +4,7 @@ const webChat = require("./webChat");
 
 const runMonitoringReminder = () => {
   //0 8 * * MON
-  cron.schedule("* * * * *", () => {
+  cron.schedule("0 8 * * MON", () => {
     const nextUser = financeTeam.getNextMonitoringPerson();
     console.log(nextUser);
     const message = `Hello @${nextUser.userId}! It seems you are the monitoring person for this week. Good Luck! :))`;
