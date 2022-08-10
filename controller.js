@@ -17,7 +17,7 @@ app.post('/hello', (req, res) => {
 app.post('/getschedule', (req, res) => {
   const schedule = financeTeam.getFullSchedule();
   console.log(schedule);
-  res.json(schedule);
+  res.json({"blocks": schedule});
   // res.end(schedule);
 });
 
