@@ -42,10 +42,7 @@ const swapMember = (fromId, toId) => {
   const fromIndex = financeTeam.indexOf(financeTeam.find(i => i.userId == fromId));
   const toIndex = financeTeam.indexOf(financeTeam.find(i => i.userId == toId));
   //destructuring assignment
-  console.log(fromId, toId);
-  console.log(fromIndex, toIndex);
   [financeTeam[fromIndex], financeTeam[toIndex]] = [financeTeam[toIndex], financeTeam[fromIndex]]
-  console.log(financeTeam);
   writeTeam(financeTeam);
 };
 
@@ -62,7 +59,7 @@ const getFullSchedule = () => {
           "*" +
           currentMonday.toLocaleDateString() +
           "* : " +
-           financeTeam[i].userName,
+          financeTeam[i].userId + " - " +financeTeam[i].userName,
       },
     });
     currentMonday.setDate(currentMonday.getDate() + 7);
