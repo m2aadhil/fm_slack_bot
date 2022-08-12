@@ -39,8 +39,8 @@ const deleteMember = (userId) => {
 
 const swapMember = (fromId, toId) => {
   const financeTeam = getFinanceTeam();
-  const fromIndex = financeTeam.indexOf(i => i.userId == fromId);
-  const toIndex = financeTeam.indexOf(i => i.userId == toId);
+  const fromIndex = financeTeam.indexOf(financeTeam.find(i => i.userId == fromId));
+  const toIndex = financeTeam.indexOf(financeTeam.find(i => i.userId == toId));
   //destructuring assignment
   console.log(fromId, toId);
   console.log(fromIndex, toIndex);
