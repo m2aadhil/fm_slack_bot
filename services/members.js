@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const writeTeam= (team) => {
+const writeTeam = (team) => {
   let data = JSON.stringify(team);
   fs.writeFileSync("./assets/members.json", data);
 };
@@ -31,7 +31,20 @@ const addMember = (userId, userName) => {
 };
 
 const deleteMember = (userId) => {
+  const financeTeam = getFinanceTeam();
+  const index = financeTeam.indexOf(i => i.userId == userId);
+  financeTeam.splice(index, 1);
+  writeTeam(financeTeam);
+};
 
+const swapMember = (fromId, toId) => {
+  const financeTeam = getFinanceTeam();
+  const fromIndex = financeTeam.indexOf(i => i.userId == fromId);
+  const toIndex = financeTeam.indexOf(i => i.userId == toId);
+  //destructuring assignment
+  [financeTeam[fromIndex], financeTeam[toIndex]] = [financeTeam[toIndex], financeTeam[fromIndex]]
+  console.log(financeTeam);
+  writeTeam(financeTeam);
 };
 
 const getFullSchedule = () => {
@@ -43,7 +56,11 @@ const getFullSchedule = () => {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: "*" + financeTeam[i].userName + "* : " + currentMonday.toLocaleDateString(),
+        text:
+          "*" +
+          financeTeam[i].userName +
+          "* : " +
+          currentMonday.toLocaleDateString(),
       },
     });
     currentMonday.setDate(currentMonday.getDate() + 7);
@@ -61,3 +78,5 @@ function getMondayOfCurrentWeek() {
 exports.getNextMonitoringPerson = getNextMonitoringPerson;
 exports.getFullSchedule = getFullSchedule;
 exports.addMember = addMember;
+exports.deleteMember = deleteMember;
+exports.swapMember = swapMember;

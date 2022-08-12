@@ -33,5 +33,17 @@ app.post('/addmember', (req, res) => {
   res.end("user added successfully");
 });
 
+app.post('/deletemember', (req, res) => {
+  const userBlocks = req.body.text.split(/ (.*)/s);
+  financeTeam.deleteMember(userBlocks[0]);
+  res.end("command executed...");
+});
+
+app.post('/swapmember', (req, res) => {
+  const userBlocks = req.body.text.split(/:(.*)/s);
+  financeTeam.swapMember(userBlocks[0], userBlocks[1]);
+  res.end("command executed...");
+});
+
 
 exports.app = app;
