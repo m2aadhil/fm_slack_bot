@@ -42,6 +42,7 @@ const swapMember = (fromId, toId) => {
   const fromIndex = financeTeam.indexOf(i => i.userId == fromId);
   const toIndex = financeTeam.indexOf(i => i.userId == toId);
   //destructuring assignment
+  console.log(fromIndex, toIndex);
   [financeTeam[fromIndex], financeTeam[toIndex]] = [financeTeam[toIndex], financeTeam[fromIndex]]
   console.log(financeTeam);
   writeTeam(financeTeam);
@@ -58,9 +59,9 @@ const getFullSchedule = () => {
         type: "mrkdwn",
         text:
           "*" +
-          financeTeam[i].userName +
+          currentMonday.toLocaleDateString() +
           "* : " +
-          currentMonday.toLocaleDateString(),
+           financeTeam[i].userName,
       },
     });
     currentMonday.setDate(currentMonday.getDate() + 7);
