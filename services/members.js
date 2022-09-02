@@ -47,24 +47,24 @@ const swapMember = (fromId, toId) => {
 };
 
 const getFullSchedule = () => {
-  const financeTeam = getFinanceTeam();
-  let currentMonday = getMondayOfCurrentWeek();
-  let payLoad = [];
-  for (let i = 0; i < financeTeam.length; i++) {
-    payLoad.push({
-      type: "section",
-      text: {
-        type: "mrkdwn",
-        text:
-          "*" +
-          currentMonday.toLocaleDateString() +
-          "* : " +
-          financeTeam[i].userId + " - " +financeTeam[i].userName,
-      },
-    });
-    currentMonday.setDate(currentMonday.getDate() + 7);
-  }
-  return payLoad;
+  // const financeTeam = getFinanceTeam();
+  // let currentMonday = getMondayOfCurrentWeek();
+  // let payLoad = [];
+  // for (let i = 0; i < financeTeam.length; i++) {
+  //   payLoad.push({
+  //     type: "section",
+  //     text: {
+  //       type: "mrkdwn",
+  //       text:
+  //         "*" +
+  //         currentMonday.toLocaleDateString() +
+  //         "* : " +
+  //         financeTeam[i].userId + " - " +financeTeam[i].userName,
+  //     },
+  //   });
+  //   currentMonday.setDate(currentMonday.getDate() + 7);
+  // }
+  return "yes";
 };
 
 function getMondayOfCurrentWeek() {
