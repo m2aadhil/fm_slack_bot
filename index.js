@@ -1,6 +1,6 @@
 const { createServer } = require("http");
 const jobs = require("./services/jobs")
-const controller = require(".api/controller");
+const controller = require("./api/controller");
 
 const port = process.env.PORT || 3000;
 

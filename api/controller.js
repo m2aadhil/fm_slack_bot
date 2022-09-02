@@ -1,8 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
-const webChat = require("./services/webChat");
-const financeTeam = require("./services/members");
+const webChat = require("../services/webChat");
+const financeTeam = require("../services/members");
 
 app.use(bodyParser());
 app.use(bodyParser.json()); // support json encoded bodies
