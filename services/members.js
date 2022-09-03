@@ -1,53 +1,63 @@
-const fs = require("fs");
+const database = require("./database")
 
-const writeTeam = (team) => {
-  let data = JSON.stringify(team);
-  fs.writeFileSync("./assets/members.json", data);
+const getFinanceTeam = async() => {
+  let rawdata = await database.findMany("team", {});
+  return rawdata;
 };
 
-const getFinanceTeam = () => {
-  let rawdata = fs.readFileSync("./assets/members.json");
-  let team = JSON.parse(rawdata);
-  return team;
+const getNextMonitoringPerson = async () => {
+  const financeTeam = await getFinanceTeam();
+  let activeMember = financeTeam.find(i => i.active);
+  let nextInOrder = activeMember.order + 1;
+  if(nextInOrder > financeTeam.length){
+    nextInOrder = 0;
+  }
+  let nextMember = financeTeam.find(i => i.order == nextInOrder);
+  nextMember.active = true;
+  activeMember.active = false;
+
+  await database.updateOne({userId: activeMember.userId}, activeMember);
+  await database.updateOne({userId: nextMember.userId}, nextMember);
+
+  return nextMember;
 };
 
-const getNextMonitoringPerson = () => {
+const addMember = async (userId, userName) => {
+  const financeTeam = await getFinanceTeam();
+  await database.insertOne(
+    "team",
+    {
+      userId: userId,
+      userName: userName,
+      order: financeTeam.length + 1,
+      active: false
+    }
+  );
+};
+
+const deleteMember = async (userId) => {
+  await database.deleteOne(
+    "team",
+    { userId: userId }
+  );
+};
+
+const swapMember = async (fromId, toId) => {
   const financeTeam = getFinanceTeam();
-  const person = financeTeam[0];
-  financeTeam.splice(0, 1);
-  financeTeam.push(person);
-  writeTeam(financeTeam);
-  return person;
+
+  let fromMember = financeTeam.find(i => i.userId == fromId);
+  let toMember = financeTeam.find(i => i.userId == toId);
+  
+  const toOrder = toMember.order;
+  toMember.order = fromMember.order;
+  fromMember.order = toOrder;
+
+  await database.updateOne({userId: fromId}, fromMember);
+  await database.updateOne({userId: toId}, toMember);
 };
 
-const addMember = (userId, userName) => {
-  const financeTeam = getFinanceTeam();
-  financeTeam.push({
-    index: financeTeam.length,
-    userId: userId,
-    userName: userName,
-  });
-  writeTeam(financeTeam);
-};
-
-const deleteMember = (userId) => {
-  const financeTeam = getFinanceTeam();
-  const index = financeTeam.indexOf(i => i.userId == userId);
-  financeTeam.splice(index, 1);
-  writeTeam(financeTeam);
-};
-
-const swapMember = (fromId, toId) => {
-  const financeTeam = getFinanceTeam();
-  const fromIndex = financeTeam.indexOf(financeTeam.find(i => i.userId == fromId));
-  const toIndex = financeTeam.indexOf(financeTeam.find(i => i.userId == toId));
-  //destructuring assignment
-  [financeTeam[fromIndex], financeTeam[toIndex]] = [financeTeam[toIndex], financeTeam[fromIndex]]
-  writeTeam(financeTeam);
-};
-
-const getFullSchedule = () => {
-  const financeTeam = getFinanceTeam();
+const getFullSchedule = async () => {
+  const financeTeam = await getFinanceTeam();
   let currentMonday = getMondayOfCurrentWeek();
   let payLoad = [];
   for (let i = 0; i < financeTeam.length; i++) {

@@ -18,30 +18,29 @@ app.post('/hello', (req, res) => {
   res.end("hello");
 });
 
-app.post('/getschedule', (req, res) => {
-  const schedule = financeTeam.getFullSchedule();
-  console.log(schedule);
+app.post('/getschedule', async (req, res) => {
+  const schedule = await financeTeam.getFullSchedule();
   res.json({"blocks": schedule});
 });
 
-app.post('/addmember', (req, res) => {
+app.post('/addmember', async (req, res) => {
   const userBlocks = req.body.text.split(/ (.*)/s);
   if(userBlocks.length < 1){
     res.end("user id and name must be specifed");
   }
-  financeTeam.addMember(userBlocks[0], userBlocks[1]);
+  await financeTeam.addMember(userBlocks[0], userBlocks[1]);
   res.end("user added successfully");
 });
 
-app.post('/deletemember', (req, res) => {
+app.post('/deletemember', async (req, res) => {
   const userBlocks = req.body.text.split(/ (.*)/s);
-  financeTeam.deleteMember(userBlocks[0]);
+  await financeTeam.deleteMember(userBlocks[0]);
   res.end("command executed...");
 });
 
-app.post('/swapmember', (req, res) => {
+app.post('/swapmember', async (req, res) => {
   const userBlocks = req.body.text.split(/:(.*)/s);
-  financeTeam.swapMember(userBlocks[0], userBlocks[1]);
+  await financeTeam.swapMember(userBlocks[0], userBlocks[1]);
   res.end("command executed...");
 });
 

@@ -21,6 +21,7 @@
     "@slack/events-api": "^3.0.1",
     "@slack/web-api": "^6.7.2",
     "express": "^4.18.1",
+    "mongodb": "^4.9.1",
     "node-cron": "^3.0.1",
     "uuid": "^8.3.2"
   }
