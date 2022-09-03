@@ -52,20 +52,16 @@ const swapMember = async (fromId, toId) => {
 
 const getFullSchedule = async () => {
   let financeTeam = await getFinanceTeam();
+  financeTeam = financeTeam.sort((a, b) => {if(b.order-a.order < 0)return 1; if(b.order - a.order > 0){return -1}  return 0;});
   const activeOrder = financeTeam.find(i => i.active).order;
-  financeTeam.sort((a, b) => { 
-    const place = activeOrder - a.order - b.order; 
-    if(place < a.order){
-      return 1;
-    }else if(place > a.order){
-      return -1;
-    }else{
-      return 0;
-    }
-  })
+  const array1 =  financeTeam.slice(0, activeOrder-1);
+  const array2 = financeTeam.slice(activeOrder-1);
+
+  const teamMembers = array2.concat(array1);
+
   let currentMonday = getMondayOfCurrentWeek();
   let payLoad = [];
-  for (let i = 0; i < financeTeam.length; i++) {
+  for (let i = 0; i < teamMembers.length; i++) {
     payLoad.push({
       type: "section",
       text: {
@@ -74,7 +70,7 @@ const getFullSchedule = async () => {
           "*" +
           currentMonday.toLocaleDateString() +
           "* : " +
-          financeTeam[i].userId + " - " +financeTeam[i].userName,
+          teamMembers[i].userId + " - " +teamMembers[i].userName,
       },
     });
     currentMonday.setDate(currentMonday.getDate() + 7);
