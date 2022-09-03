@@ -55,9 +55,9 @@ const getFullSchedule = async () => {
   const activeOrder = financeTeam.find(i => i.active).order;
   financeTeam.sort((a, b) => { 
     const place = activeOrder - a.order - b.order; 
-    if(place > a.order){
+    if(place < a.order){
       return 1;
-    }else if(place < a.order){
+    }else if(place > a.order){
       return -1;
     }else{
       return 0;
