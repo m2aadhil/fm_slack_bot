@@ -7,17 +7,15 @@ const getFinanceTeam = async() => {
 
 const getNextMonitoringPerson = async () => {
   const financeTeam = await getFinanceTeam();
-  let activeMember = financeTeam.find(i => i.active);
+  const activeMember = financeTeam.find(i => i.active);
   let nextInOrder = activeMember.order + 1;
   if(nextInOrder > financeTeam.length){
     nextInOrder = 1;
   }
-  let nextMember = financeTeam.find(i => i.order == nextInOrder);
-  nextMember.active = true;
-  activeMember.active = false;
+  const nextMember = financeTeam.find(i => i.order == nextInOrder);
 
-  await database.updateOne("team", {userId: activeMember.userId}, activeMember);
-  await database.updateOne("team", {userId: nextMember.userId}, nextMember);
+  await database.updateOne("team", {userId: activeMember.userId}, {$set: {active: false}});
+  await database.updateOne("team", {userId: nextMember.userId}, {$set: {active: true}});
 
   return nextMember;
 };
@@ -47,13 +45,9 @@ const swapMember = async (fromId, toId) => {
 
   let fromMember = financeTeam.find(i => i.userId == fromId);
   let toMember = financeTeam.find(i => i.userId == toId);
-  
-  const toOrder = toMember.order;
-  toMember.order = fromMember.order;
-  fromMember.order = toOrder;
 
-  await database.updateOne("team", {userId: fromId}, fromMember);
-  await database.updateOne("team", {userId: toId}, toMember);
+  await database.updateOne("team", {userId: fromId}, {$set: {order: toMember.order}});
+  await database.updateOne("team", {userId: toId}, {$set: {order: fromMember.order}});
 };
 
 const getFullSchedule = async () => {
