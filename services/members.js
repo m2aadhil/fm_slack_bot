@@ -57,7 +57,18 @@ const swapMember = async (fromId, toId) => {
 };
 
 const getFullSchedule = async () => {
-  const financeTeam = await getFinanceTeam();
+  let financeTeam = await getFinanceTeam();
+  const activeOrder = financeTeam.find(i => i.active).order;
+  financeTeam.sort((a, b) => { 
+    const place = activeOrder - a.order - b.order; 
+    if(place > a.order){
+      return 1;
+    }else if(place < a.order){
+      return -1;
+    }else{
+      return 0;
+    }
+  })
   let currentMonday = getMondayOfCurrentWeek();
   let payLoad = [];
   for (let i = 0; i < financeTeam.length; i++) {
