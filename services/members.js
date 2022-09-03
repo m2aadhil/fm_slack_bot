@@ -10,7 +10,7 @@ const getNextMonitoringPerson = async () => {
   let activeMember = financeTeam.find(i => i.active);
   let nextInOrder = activeMember.order + 1;
   if(nextInOrder > financeTeam.length){
-    nextInOrder = 0;
+    nextInOrder = 1;
   }
   let nextMember = financeTeam.find(i => i.order == nextInOrder);
   nextMember.active = true;
@@ -43,7 +43,7 @@ const deleteMember = async (userId) => {
 };
 
 const swapMember = async (fromId, toId) => {
-  const financeTeam = getFinanceTeam();
+  const financeTeam = await getFinanceTeam();
 
   let fromMember = financeTeam.find(i => i.userId == fromId);
   let toMember = financeTeam.find(i => i.userId == toId);
