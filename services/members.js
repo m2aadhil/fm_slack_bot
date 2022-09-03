@@ -16,8 +16,8 @@ const getNextMonitoringPerson = async () => {
   nextMember.active = true;
   activeMember.active = false;
 
-  await database.updateOne({userId: activeMember.userId}, activeMember);
-  await database.updateOne({userId: nextMember.userId}, nextMember);
+  await database.updateOne("team", {userId: activeMember.userId}, activeMember);
+  await database.updateOne("team", {userId: nextMember.userId}, nextMember);
 
   return nextMember;
 };
@@ -52,8 +52,8 @@ const swapMember = async (fromId, toId) => {
   toMember.order = fromMember.order;
   fromMember.order = toOrder;
 
-  await database.updateOne({userId: fromId}, fromMember);
-  await database.updateOne({userId: toId}, toMember);
+  await database.updateOne("team", {userId: fromId}, fromMember);
+  await database.updateOne("team", {userId: toId}, toMember);
 };
 
 const getFullSchedule = async () => {
