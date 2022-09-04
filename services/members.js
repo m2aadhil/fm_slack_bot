@@ -7,7 +7,7 @@ const getFinanceTeam = async() => {
 
 const getNextMonitoringPerson = async () => {
   const financeTeam = await getFinanceTeam();
-  const activeMember = financeTeam.find(i => i.active);
+  const activeMember = financeTeam.find(i => i.active == true);
   let nextInOrder = activeMember.order + 1;
   if(nextInOrder > financeTeam.length){
     nextInOrder = 1;
@@ -46,8 +46,8 @@ const swapMember = async (fromId, toId) => {
   let fromMember = financeTeam.find(i => i.userId == fromId);
   let toMember = financeTeam.find(i => i.userId == toId);
 
-  await database.updateOne("team", {userId: fromId}, {$set: {order: toMember.order}});
-  await database.updateOne("team", {userId: toId}, {$set: {order: fromMember.order}});
+  await database.updateOne("team", {userId: fromId}, {$set: {order: toMember.order, active: toMember.active}});
+  await database.updateOne("team", {userId: toId}, {$set: {order: fromMember.order, active:fromMember.active}});
 };
 
 const getFullSchedule = async () => {
