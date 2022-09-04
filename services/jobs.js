@@ -1,7 +1,7 @@
 const financeTeam = require("./members");
 const webChat = require("./webChat");
 
-const runMonitoringReminder = () => {
+const runMonitoringReminder = async () => {
   //0 8 * * MON
   const nextUser = await financeTeam.getNextMonitoringPerson();
     console.log(nextUser);

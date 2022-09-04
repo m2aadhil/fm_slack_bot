@@ -46,7 +46,7 @@ app.post('/swapmember', async (req, res) => {
 });
 
 app.get('/runjob', async (req, res) => {
-  jobs.runMonitoringReminder();
+  await jobs.runMonitoringReminder();
   res.end("command executed...");
 });
 
