@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const app = express();
 const webChat = require("../services/webChat");
 const financeTeam = require("../services/members");
+const jobs = require("../services/jobs");
 
 app.use(bodyParser());
 app.use(bodyParser.json()); // support json encoded bodies
@@ -41,6 +42,11 @@ app.post('/deletemember', async (req, res) => {
 app.post('/swapmember', async (req, res) => {
   const userBlocks = req.body.text.split(/:(.*)/s);
   await financeTeam.swapMember(userBlocks[0], userBlocks[1]);
+  res.end("command executed...");
+});
+
+app.get('/runjob', async (req, res) => {
+  jobs.runMonitoringReminder();
   res.end("command executed...");
 });
 
