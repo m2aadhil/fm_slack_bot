@@ -1,6 +1,6 @@
 const { WebClient } = require("@slack/web-api");
 const web = new WebClient(process.env.SLACK_TOKEN);
-const channel = "#finance-test-bot";
+const channel = "#finance-internal";
 
 const postMessage = async (message) => {
   try {
