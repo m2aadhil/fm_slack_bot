@@ -1,5 +1,4 @@
 const { createServer } = require("http");
-const jobs = require("./services/jobs")
 const controller = require("./api/controller");
 
 const port = process.env.PORT || 3000;
@@ -10,6 +9,4 @@ const port = process.env.PORT || 3000;
   server.listen(port, () => {
     console.log(`Starting the server on ${server.address().port}`);
   });
-
-  jobs.runMonitoringReminder();
 })();
