@@ -14,8 +14,8 @@ const getNextMonitoringPerson = async () => {
   }
   const nextMember = financeTeam.find(i => i.order == nextInOrder);
 
-  await database.updateOne("team", {userId: activeMember.userId}, {$set: {active: false}});
-  await database.updateOne("team", {userId: nextMember.userId}, {$set: {active: true}});
+  database.updateOne("team", {userId: activeMember.userId}, {$set: {active: false}});
+  database.updateOne("team", {userId: nextMember.userId}, {$set: {active: true}});
 
   return nextMember;
 };
