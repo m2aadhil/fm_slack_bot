@@ -14,11 +14,15 @@ const getNextMonitoringPerson = async () => {
   }
   const nextMember = financeTeam.find(i => i.order == nextInOrder);
 
-  database.updateOne("team", {userId: activeMember.userId}, {$set: {active: false}});
-  database.updateOne("team", {userId: nextMember.userId}, {$set: {active: true}});
-
+  updateDatabase(activeMember, nextMember);
+  
   return nextMember;
 };
+
+const updateDatabase = async (activeMember , nextMember) => {
+  await database.updateOne("team", {userId: activeMember.userId}, {$set: {active: false}});
+  await database.updateOne("team", {userId: nextMember.userId}, {$set: {active: true}});
+}
 
 const addMember = async (userId, userName) => {
   const financeTeam = await getFinanceTeam();
