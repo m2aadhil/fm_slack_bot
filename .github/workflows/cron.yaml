@@ -1,7 +1,7 @@
 name: notify-monitoring-person
 on:
   schedule:
-    - cron: '45 8 * * 1'
+    - cron: '55 8 * * 1'
 jobs:
   cron:
     runs-on: ubuntu-latest
