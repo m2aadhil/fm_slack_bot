@@ -20,6 +20,12 @@ const getNextMonitoringPerson = async () => {
   return nextMember;
 };
 
+const getCurrentMonitoringPerson = async () => {
+  const financeTeam = await getFinanceTeam();
+  const activeMember = financeTeam.find(i => i.active == true);
+  return activeMember;
+};
+
 const addMember = async (userId, userName) => {
   const financeTeam = await getFinanceTeam();
   await database.insertOne(
@@ -90,3 +96,4 @@ exports.getFullSchedule = getFullSchedule;
 exports.addMember = addMember;
 exports.deleteMember = deleteMember;
 exports.swapMember = swapMember;
+exports.getCurrentMonitoringPerson = getCurrentMonitoringPerson;
