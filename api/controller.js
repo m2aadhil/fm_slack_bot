@@ -51,7 +51,6 @@ app.get('/runjob', async (req, res) => {
 });
 
 app.post('/notify', async (req, res) => {
-  await jobs.runMonitoringReminder();
   let person = await financeTeam.getCurrentMonitoringPerson();
   const message = `Hello @${person.userId}! It seems you are the monitoring person for this week. Good Luck! :))`;
   webChat.postMessage(message);
