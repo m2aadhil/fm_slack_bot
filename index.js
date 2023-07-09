@@ -5,7 +5,7 @@ const job = require('./services/jobs');
 
 const port = process.env.PORT || 3000;
 
-const scheduledTime = '0 10 * * 1';
+const scheduledTime = '0 9 * * 1';
 
 cron.schedule(scheduledTime, function() {
   job.runMonitoringReminder();
